@@ -1,10 +1,6 @@
 import json,time,os
 from random import randint, choice
 
-#define parameters of the exercise
-EXERCISE_LENGTH = 2
-PROMPT_AS_DIGIT = True
-
 #Get major system association from JSON file
 majorsystemJSON = open('./majorsystem.json','r')
 majorsystem = json.load(majorsystemJSON)
@@ -26,6 +22,7 @@ def getAssociation(pInput, inputIsNumber):
             return -1
 
 def start_exercise(length=5, promptAsDigit=True):
+    """
     mark = 0
     os.system('cls')
 
@@ -45,6 +42,19 @@ def start_exercise(length=5, promptAsDigit=True):
 
     print('Your final mark is',mark,'/',length)
     print('In average you took', round(((time.time() - start_time - 0.5*length)/length)*10)/10 , 'seconds to answer')
+    """
+    questions = []
+    for i in range(length):
+        prompt = randint(0,9) if promptAsDigit else choice(list(letters.keys()))
+        questions.append({
+            "question":prompt,
+            "answer":getAssociation(prompt, promptAsDigit)
+        })
+    return {"length":length, "promptAsDigit":promptAsDigit, "questions":questions}
 
 if __name__ == "__main__":
-    start_exercise(EXERCISE_LENGTH,PROMPT_AS_DIGIT)
+    #define parameters of the exercise
+    EXERCISE_LENGTH = 2
+    PROMPT_AS_DIGIT = True
+
+    print(start_exercise(EXERCISE_LENGTH,PROMPT_AS_DIGIT))
