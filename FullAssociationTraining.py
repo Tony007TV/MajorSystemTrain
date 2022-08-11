@@ -13,7 +13,22 @@ majorsystem = json.load(majorsystemJSON)
 def getAssociation(pInput, ):
     return [] if not(str(pInput) in majorsystem.keys()) else majorsystem[str(pInput)]
 
+
 def start_exercise(length=5):
+    questions = []
+    for i in range(length):
+        prompt = str(randint(0,9))
+        questions.append({
+            "question":prompt,
+            "answer":getAssociation(prompt)
+        })
+    return {
+        "length":length,
+        "boilerplate":"Which letters are associated with the number * : ",
+        "questions":questions,
+        "correction":lambda userinput,answer: set(userinput.split(',')) == set(answer)
+    }
+    """
     mark = 0
     os.system('cls')
 
@@ -33,6 +48,7 @@ def start_exercise(length=5):
 
     print('Your final mark is',mark,'/',length)
     print('In average you took', round(((time.time() - start_time - 0.5*length)/length)*10)/10 , 'seconds to answer')
+    """
 
 if __name__ == "__main__":
-    start_exercise(EXERCISE_LENGTH)
+    print(start_exercise(EXERCISE_LENGTH)["correction"]('k,c,g',["k","g","c"]))

@@ -22,35 +22,19 @@ def getAssociation(pInput, inputIsNumber):
             return -1
 
 def start_exercise(length=5, promptAsDigit=True):
-    """
-    mark = 0
-    os.system('cls')
-
-    for i in range(length):
-        prompt = randint(0,9) if promptAsDigit else choice(letters.keys())
-        start_time = time.time()
-
-        answer = input(f'Enter the associated {"letter" if promptAsDigit else "number"} for the {"number" if promptAsDigit else "letter"} '+str(prompt)+' : ')
-
-        if answer in getAssociation(prompt, promptAsDigit):
-            print('Right Answer!')
-            mark += 1
-        else:
-            print('Wrong Answer')
-        time.sleep(0.5)
-        os.system('cls')
-
-    print('Your final mark is',mark,'/',length)
-    print('In average you took', round(((time.time() - start_time - 0.5*length)/length)*10)/10 , 'seconds to answer')
-    """
     questions = []
     for i in range(length):
-        prompt = randint(0,9) if promptAsDigit else choice(list(letters.keys()))
+        prompt = str(randint(0,9)) if promptAsDigit else choice(list(letters.keys()))
         questions.append({
             "question":prompt,
             "answer":getAssociation(prompt, promptAsDigit)
         })
-    return {"length":length, "promptAsDigit":promptAsDigit, "questions":questions}
+    return {
+        "length":length,
+        "boilerplate":"Which letter is associated with the number * : " if promptAsDigit else "Which number is associated with the letter * : ",
+        "questions":questions,
+        "correction":lambda userinput,answer: userinput in answer
+    }
 
 if __name__ == "__main__":
     #define parameters of the exercise
