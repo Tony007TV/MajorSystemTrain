@@ -38,7 +38,7 @@ l = 10
 if len(parameters) > 1 and parameters[1].isdigit():
     if len(parameters) > 2 and parameters[2].isdigit():
         if int(parameters[2]) > 0:
-            l = int(parameters[2])
+            l = int(parameters[2])+2
     exeNum = int(parameters[1])-1
     if exeNum in range(0,len(exercises)):
         if '-r' in parameters:
